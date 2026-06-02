@@ -9,6 +9,7 @@ import { hasTwilioReminderConfig, sendDailyReminder } from './services/notificat
 import apiRoutes from './routes/index.js'
 
 assertServerEnv()
+console.log(`Backend running with deployTarget=${env.deployTarget}, enableInternalCron=${env.enableInternalCron}, notificationTimezone=${env.notificationTimezone}`)
 
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))

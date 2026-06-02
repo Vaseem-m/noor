@@ -2,7 +2,11 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const deployTarget = process.env.VITE_DEPLOY_TARGET || 'local'
+const deployTarget =
+  process.env.DEPLOY_TARGET ||
+  (process.env.SERVER_CRON === 'true' ? 'server-cron' : undefined) ||
+  process.env.VITE_DEPLOY_TARGET ||
+  'local'
 
 export const env = {
   deployTarget,
@@ -18,7 +22,8 @@ export const env = {
   myPhoneNumber: process.env.MY_WHATSAPP_NUMBER,
   notificationTimezone: process.env.NOTIFICATION_TIMEZONE || 'Asia/Kolkata',
   reminderSecret: process.env.REMINDER_SECRET,
-  enableInternalCron: deployTarget === 'server-cron',
+  enableInternalCron:
+    process.env.ENABLE_INTERNAL_CRON === 'true' || deployTarget === 'server-cron',
 }
 
 export function assertServerEnv() {
